@@ -21,7 +21,7 @@ export class Board {
   
   // render = output/draw something
   render() {
-    // console.log('-'.repeat(this.columns * 4));
+    console.log('-'.repeat(this.columns * 4));
     console.log(
       this.matrix.map(row =>
         row.map(cell => `| ${cell} `).join('') + '|'
@@ -50,7 +50,7 @@ export class Board {
     // check that the position is empty - otherwise don't make the move
     // if (this.matrix[column] !== ' ') { return false; }
 
-    // loop through rows
+    // loop through rows from bottom to top
     for (let row = this.rows - 1; row >= 0; row--) {
             if (this.matrix[row][column] === ' ') {
               this.matrix[row][column] = this.currentPlayerColor;
