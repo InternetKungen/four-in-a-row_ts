@@ -18,5 +18,22 @@ export class Game {
     console.clear();
     console.log(`Hej ${this.player1} och ${this.player2}!`);
     this.board.render();
+    this.gameLoop();  // Kör spel-loopen
   }
+
+  gameLoop(): void {
+        // game loop - runs until the game is over
+        while (!this.board.gameOver) {
+            console.clear();
+            this.board.render();
+            let player = this.board.currentPlayerColor === 'X'
+                ? this.player1 : this.player2;
+            let column: number = parseInt(prompt(
+                `Make your move ${player.color} ${player.name} - input column number (1-${this.board.columns}): `)
+            );
+            
+            // try to make the move
+            this.board.makeMove(player.color, column);
+        }
+    }
 }
