@@ -24,16 +24,22 @@ export class Game {
   gameLoop(): void {
         // game loop - runs until the game is over
         while (!this.board.gameOver) {
-            console.clear();
-            this.board.render();
-            let player = this.board.currentPlayerColor === 'X'
-                ? this.player1 : this.player2;
-            let column: number = parseInt(prompt(
-                `Make your move ${player.color} ${player.name} - input column number (1-${this.board.columns}): `)
-            );
+          console.clear();
+          this.board.render();
+
+          //Set current player
+          let player = this.board.currentPlayerColor === 'X'
+          ? this.player1 : this.player2;
+        
+          //Ask player for move, and pass it as column number,
+          //board colums are 1,2,3,4,5,6,7, but also albe to be dynamic.
+          let column: number = parseInt(prompt(
+              `Make your move ${player.color} ${player.name} - input column number (1-${this.board.columns}): `)
+          );
             
-            // try to make the move
-            this.board.makeMove(player.color, column);
+          // try to make the move
+          //send current player color and column number
+          this.board.makeMove(player.color, column);
         }
     }
 }
