@@ -47,9 +47,6 @@ export class Board {
     // check that the column is between 0 and columns set - otherwise don't make the move
     if (column < 0 || column >= this.columns) { return false; }
 
-    // check that the position is empty - otherwise don't make the move
-    // if (this.matrix[column] !== ' ') { return false; }
-
     // loop through rows from bottom to top
     for (let row = this.rows - 1; row >= 0; row--) {
       if (this.matrix[row][column] === ' ') {
@@ -74,7 +71,6 @@ export class Board {
 
   winCheck(row: number, column: number): void {
     
-    // check if there are 4 in a row in any direction
     const directions = [
       [[0, 1], [0, -1]],  // Horizontal
       [[1, 0], [-1, 0]],  // Vertical
@@ -82,7 +78,7 @@ export class Board {
       [[1, -1], [-1, 1]]  // Diagonal up-right
     ];
 
-    // check if there are 4 in a row in any direction
+    // check if there are 4 in a row in any direction, if so, the player has won
     for (const [[x1, y1], [x2, y2]] of directions) {
       const count = 1 +
         this.countInDirection(row, column, x1, y1) +
@@ -94,7 +90,8 @@ export class Board {
       }
     }
   }
-    
+  
+  // count the number of pieces in a direction
   countInDirection(row: number, column: number, rowDirection: number, columnDirection: number): number {
     let count = 0;
     let r = row + rowDirection;
