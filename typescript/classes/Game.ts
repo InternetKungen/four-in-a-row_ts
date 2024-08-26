@@ -13,6 +13,7 @@ export class Game {
 
     //Start Menu
     this.startMenu();
+    
     this.player1 = new Player(prompt('Name of Player 1: '), 'X');
     this.player2 = new Player(prompt('Name of Player 2: '), 'O');
     this.board = new Board();

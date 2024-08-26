@@ -21,13 +21,17 @@ export class Board {
   
   // render = output/draw something
   render() {
-    console.log('-'.repeat(this.columns * 4));
+    // column numbers
+    const columnNumbers = Array.from({ length: this.columns }, (_, i) => `  ${i + 1} `).join('');
+    console.log(columnNumbers);
+    
+    console.log('-'.repeat(this.columns * 4) + '-');
     console.log(
       this.matrix.map(row =>
         row.map(cell => `| ${cell} `).join('') + '|'
-      ).join('\n' + '-'.repeat(this.columns * 4) + '\n')
+      ).join('\n' + '-'.repeat(this.columns * 4) + '-\n')
     );
-    console.log('-'.repeat(this.columns * 4));
+    console.log('-'.repeat(this.columns * 4) + '-');
   }
   
   makeMove(color: string, column: number): boolean {
