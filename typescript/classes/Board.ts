@@ -60,11 +60,13 @@ export class Board {
         this.winCheck(row, column);
         // this.isADraw = this.drawCheck();
 
-        // the game is over if someone has won or if it's a draw
-        // this.gameOver = this.winner || this.isADraw;
+        // check if the board is full (if it's a draw)
+        this.checkBoardFull();
 
-        // change the current player color
-        this.currentPlayerColor = this.currentPlayerColor === 'X' ? 'O' : 'X';
+        // change the current player color, if the game is not over
+        if (!this.gameOver) {
+          this.currentPlayerColor = this.currentPlayerColor === 'X' ? 'O' : 'X';
+        }
 
         return true;
       }
@@ -110,5 +112,14 @@ export class Board {
         c += columnDirection;
     }
     return count;
+  }
+
+  // check if the board is full (for draw)
+  checkBoardFull(): void {
+    if (this.matrix.flat().every(cell => cell !== ' ')) {
+      this.isADraw = true; // Do I need this?
+      this.gameOver = true;
+      console.log('It is a draw!');
+    }
   }
 }
