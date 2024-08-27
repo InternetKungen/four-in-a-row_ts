@@ -34,10 +34,10 @@ export class Game {
           this.startPlayerVsPlayer();
           break;
         case '2':
-          this.startPlayerVsComputer();
+          this.startPlayerVsComputer();  
           break;
         case '3':
-          console.log("Exiting game...");
+          console.log("Exiting game..."); //TODO: add exit game function
           break;
         default:
           console.log("Invalid choice. Try again...");
@@ -50,16 +50,20 @@ export class Game {
     //draw menu player x
     console.clear();
     console.log("====  PLAYER  X  ====");
+    console.log("");
     console.log("        X   x        ");
     console.log("          X          ");
     console.log("        x   X        ");
+    console.log("");
     this.player1 = new Player(prompt('Name of Player 1: '), 'X');
     //draw menu player o
     console.clear();
     console.log("====  PLAYER  O  ====");
+    console.log("");
     console.log("        O O O        ");
     console.log("        O   O        ");
     console.log("        O O O        ");
+    console.log("");
     this.player2 = new Player(prompt('Name of Player 2: '), 'O');
     //draw board
     this.board = new Board();
@@ -67,7 +71,7 @@ export class Game {
     this.start();
   }
   
-  startPlayerVsComputer(): void {
+  startPlayerVsComputer(): void { //TODO: add computer player
     this.player1 = new Player(prompt('Name of Player 1: '), 'X');
     this.player2 = new Player("Computer", 'O');
     this.board = new Board();
