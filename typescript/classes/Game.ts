@@ -37,8 +37,8 @@ export class Game {
           this.startPlayerVsComputer();  
           break;
         case '3':
-          console.log("Exiting game..."); //TODO: add exit game function
-          break;
+          console.log("Exiting game...");
+          return
         default:
           console.log("Invalid choice. Try again...");
           this.startMenu();

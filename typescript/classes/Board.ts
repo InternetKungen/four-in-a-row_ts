@@ -58,7 +58,6 @@ export class Board {
 
         // check if someone has won or if it's a draw/tie and update properties
         this.winCheck(row, column);
-        // this.isADraw = this.drawCheck();
 
         // check if the board is full (if it's a draw)
         this.checkBoardFull();
@@ -93,6 +92,7 @@ export class Board {
       if (count >= 4) {
         this.winner = this.currentPlayerColor;
         this.gameOver = true;
+        console.log(`${this.currentPlayerColor} has won!`);
         break;
       }
     }
