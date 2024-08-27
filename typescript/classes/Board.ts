@@ -70,6 +70,7 @@ export class Board {
       }
     }
     // if the column is full, don't make the move
+    console.log('Column is full');
     return false;
   }
 
@@ -98,10 +99,13 @@ export class Board {
   // count the number of pieces in a direction
   countInDirection(row: number, column: number, rowDirection: number, columnDirection: number): number {
     let count = 0;
-    let r = row + rowDirection;
-    let c = column + columnDirection;
-    while (r >= 0 && r < this.rows && c >= 0 && c < this.columns && this.matrix[r][c] === this.currentPlayerColor) {
-      count++;
+    let r = row + rowDirection; // row to check
+    let c = column + columnDirection; // column to check
+    while (
+      r >= 0 && r < this.rows && // check if row are within bounds
+      c >= 0 && c < this.columns && // check if column are within bounds
+      this.matrix[r][c] === this.currentPlayerColor) { // check if the piece is the same color
+        count++;
         r += rowDirection;
         c += columnDirection;
     }

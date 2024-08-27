@@ -47,9 +47,23 @@ export class Game {
     }
   
   startPlayerVsPlayer(): void {
+    //draw menu player x
+    console.clear();
+    console.log("====  PLAYER  X  ====");
+    console.log("        X   x        ");
+    console.log("          X          ");
+    console.log("        x   X        ");
     this.player1 = new Player(prompt('Name of Player 1: '), 'X');
+    //draw menu player o
+    console.clear();
+    console.log("====  PLAYER  O  ====");
+    console.log("        O O O        ");
+    console.log("        O   O        ");
+    console.log("        O O O        ");
     this.player2 = new Player(prompt('Name of Player 2: '), 'O');
+    //draw board
     this.board = new Board();
+    //start game
     this.start();
   }
   
