@@ -1,18 +1,34 @@
 import prompt from '../helpers/prompt.js';
 import { Player } from './Player.js';
 import { Board } from './Board.js';
+import { StartMenu } from './StartMenu.js';
 
 export class Game {
 
-  player1: Player;
-  player2: Player;
-  board: Board;
+  player1: Player
+  player2: Player 
+  board: Board
 
 
   constructor() {
 
     //Start Menu
-    this.startMenu();
+    const startMenu = new StartMenu();
+    const choice = startMenu.select();
+    switch (choice) {
+      case 1:
+        this.startPlayerVsPlayer();
+        break;
+      case 2:
+        this.startPlayerVsComputer();
+        break;
+      case 3:
+        console.log("Exiting game...");
+        return;
+    }
+
+    //Start Menu
+    // this.startMenu();
     
     this.player1 = new Player(prompt('Name of Player 1: '), 'X');
     this.player2 = new Player(prompt('Name of Player 2: '), 'O');
@@ -20,31 +36,31 @@ export class Game {
 
   }
 
-  startMenu(): void {
-    console.clear();
-    console.log("=== Four in a row ===");
-    console.log("1. Player vs. Player");
-    console.log("2. Player vs. Computer");
-    console.log("3. Exit Game");
+  // startMenu(): void {
+  //   console.clear();
+  //   console.log("=== Four in a row ===");
+  //   console.log("1. Player vs. Player");
+  //   console.log("2. Player vs. Computer");
+  //   console.log("3. Exit Game");
 
-    const choice = prompt("Enter your choice (1-3): ");
+  //   const choice = prompt("Enter your choice (1-3): ");
 
-      switch (choice) {
-        case '1':
-          this.startPlayerVsPlayer();
-          break;
-        case '2':
-          this.startPlayerVsComputer();  
-          break;
-        case '3':
-          console.log("Exiting game...");
-          return
-        default:
-          console.log("Invalid choice. Try again...");
-          this.startMenu();
-          break;
-      }
-    }
+  //     switch (choice) {
+  //       case '1':
+  //         this.startPlayerVsPlayer();
+  //         break;
+  //       case '2':
+  //         this.startPlayerVsComputer();  
+  //         break;
+  //       case '3':
+  //         console.log("Exiting game...");
+  //         return
+  //       default:
+  //         console.log("Invalid choice. Try again...");
+  //         this.startMenu();
+  //         break;
+  //     }
+  //   }
   
   startPlayerVsPlayer(): void {
     //draw menu player x
@@ -103,6 +119,11 @@ export class Game {
           // try to make the move
           //send current player color and column number
           this.board.makeMove(player.color, column);
-        }
+    }
+
+    console.clear();
+    this.board.render();
+    console.log(this.board.currentPlayerColor === 'X' ? 'Player 1 wins!' : 'Player 2 wins!');
+    console.log('Game over!');
     }
 }
