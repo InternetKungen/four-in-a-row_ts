@@ -1,9 +1,14 @@
+import { WinChecker } from './WinChecker.js';
+import { MoveManager } from './MoveManager.js';
+
 export class Board {
   matrix: string[][];
   currentPlayerColor: string;
   gameOver: boolean;
   winner: string | null;
   isADraw: boolean;
+  winChecker: WinChecker;
+  moveManager: MoveManager;
 
   constructor(public rows: number = 6, public columns: number = 7) {
     
@@ -12,6 +17,10 @@ export class Board {
 
     // currentPlayer, whose turn is it?
     this.currentPlayerColor = 'X';
+
+    this.winChecker = new WinChecker(this.matrix, this.rows, this.columns);
+
+    this.moveManager = new MoveManager(this);
 
     // status of game (updated after each move)
     this.winner = null;
@@ -31,9 +40,11 @@ export class Board {
         row.map(cell => `| ${cell} `).join('') + '|'
       ).join('\n' + '-'.repeat(this.columns * 4) + '-\n')
     );
-    console.log('-'.repeat(this.columns * 4) + '-');
+    console.log('-'.repeat(this.columns * 4) + '-\n');
   }
-  
+
+  // testing  MoveManager
+  /*
   makeMove(color: string, column: number): boolean {
 
     // don't make any move if the game is over
@@ -57,7 +68,13 @@ export class Board {
         this.matrix[row][column] = this.currentPlayerColor;
 
         // check if someone has won or if it's a draw/tie and update properties
-        this.winCheck(row, column);
+        // this.winCheck(row, column);
+
+        //New Win Checker - return true if the player has won
+        if (this.winChecker.winCheck(row, column, this.currentPlayerColor)) {
+          this.gameOver = true;
+          this.winner = this.currentPlayerColor;
+        }
 
         // check if the board is full (if it's a draw)
         this.checkBoardFull();
@@ -74,7 +91,10 @@ export class Board {
     console.log('Column is full');
     return false;
   }
+*/
 
+  //Testing class winChecker
+  /*
   winCheck(row: number, column: number): void {
     
     const directions = [
@@ -113,6 +133,7 @@ export class Board {
     }
     return count;
   }
+*/
 
   // check if the board is full (for draw)
   checkBoardFull(): void {
