@@ -13,7 +13,12 @@ export class StartMenu {
 
     if (isNaN(choice) || choice < 1 || choice > 3) {
       console.log("Invalid choice. Try again...");
-      return this.select();
+      // return this.select();
+      // Wait for 0.4 seconds
+      setTimeout(() => this.select(), 400);
+
+      // return this.select();
+      return -1;
     }
     return choice;
   }
