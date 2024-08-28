@@ -1,9 +1,12 @@
+import { WinChecker } from './WinChecker.js';
+
 export class Board {
   matrix: string[][];
   currentPlayerColor: string;
   gameOver: boolean;
   winner: string | null;
   isADraw: boolean;
+  winChecker: WinChecker;
 
   constructor(public rows: number = 6, public columns: number = 7) {
     
@@ -12,6 +15,8 @@ export class Board {
 
     // currentPlayer, whose turn is it?
     this.currentPlayerColor = 'X';
+
+    this.winChecker = new WinChecker(this.matrix, this.rows, this.columns);
 
     // status of game (updated after each move)
     this.winner = null;
@@ -57,7 +62,13 @@ export class Board {
         this.matrix[row][column] = this.currentPlayerColor;
 
         // check if someone has won or if it's a draw/tie and update properties
-        this.winCheck(row, column);
+        // this.winCheck(row, column);
+
+        //New Win Checker - return true if the player has won
+        if (this.winChecker.winCheck(row, column, this.currentPlayerColor)) {
+          this.gameOver = true;
+          this.winner = this.currentPlayerColor;
+        }
 
         // check if the board is full (if it's a draw)
         this.checkBoardFull();
@@ -75,6 +86,8 @@ export class Board {
     return false;
   }
 
+  //Testing class winChecker
+  /*
   winCheck(row: number, column: number): void {
     
     const directions = [
@@ -113,6 +126,7 @@ export class Board {
     }
     return count;
   }
+*/
 
   // check if the board is full (for draw)
   checkBoardFull(): void {
