@@ -31,7 +31,7 @@ export class Board {
         row.map(cell => `| ${cell} `).join('') + '|'
       ).join('\n' + '-'.repeat(this.columns * 4) + '-\n')
     );
-    console.log('-'.repeat(this.columns * 4) + '-');
+    console.log('-'.repeat(this.columns * 4) + '-\n');
   }
   
   makeMove(color: string, column: number): boolean {

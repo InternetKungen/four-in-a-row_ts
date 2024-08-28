@@ -62,8 +62,8 @@ export class Game {
   //     }
   //   }
   
-  startPlayerVsPlayer(): void {
-    //draw menu player x
+  //draw menu player x/o
+  drawMenuPlayerX(): void {
     console.clear();
     console.log("====  PLAYER  X  ====");
     console.log("");
@@ -71,8 +71,9 @@ export class Game {
     console.log("          X          ");
     console.log("        x   X        ");
     console.log("");
-    this.player1 = new Player(prompt('Name of Player 1: '), 'X');
-    //draw menu player o
+  }
+
+  drawMenuPlayerO(): void {
     console.clear();
     console.log("====  PLAYER  O  ====");
     console.log("");
@@ -80,9 +81,20 @@ export class Game {
     console.log("        O   O        ");
     console.log("        O O O        ");
     console.log("");
+  }
+  
+  startPlayerVsPlayer(): void {
+    //draw menu player x
+    this.drawMenuPlayerX();
+    this.player1 = new Player(prompt('Name of Player 1: '), 'X');
+
+    //draw menu player o
+    this.drawMenuPlayerO();
     this.player2 = new Player(prompt('Name of Player 2: '), 'O');
+    
     //draw board
     this.board = new Board();
+    
     //start game
     this.start();
   }

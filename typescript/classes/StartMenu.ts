@@ -7,7 +7,7 @@ export class StartMenu {
     console.log("=== Four in a row ===");
     console.log("1. Player vs. Player");
     console.log("2. Player vs. Computer");
-    console.log("3. Exit Game");
+    console.log("3. Exit Game\n");
 
     const choice = parseInt(prompt("Enter your choice (1-3): "), 10);
 
