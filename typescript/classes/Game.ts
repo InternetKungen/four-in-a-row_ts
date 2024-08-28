@@ -137,7 +137,7 @@ export class Game {
           
         // try to make the move
         //send current player color and column number
-        this.board.makeMove(player.color, column);
+        this.board.moveManager.makeMove(player.color, column);
       } else {
         console.log('No player available');
       }

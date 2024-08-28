@@ -1,4 +1,5 @@
 import { WinChecker } from './WinChecker.js';
+import { MoveManager } from './MoveManager.js';
 
 export class Board {
   matrix: string[][];
@@ -7,6 +8,7 @@ export class Board {
   winner: string | null;
   isADraw: boolean;
   winChecker: WinChecker;
+  moveManager: MoveManager;
 
   constructor(public rows: number = 6, public columns: number = 7) {
     
@@ -17,6 +19,8 @@ export class Board {
     this.currentPlayerColor = 'X';
 
     this.winChecker = new WinChecker(this.matrix, this.rows, this.columns);
+
+    this.moveManager = new MoveManager(this);
 
     // status of game (updated after each move)
     this.winner = null;
@@ -38,7 +42,9 @@ export class Board {
     );
     console.log('-'.repeat(this.columns * 4) + '-\n');
   }
-  
+
+  // testing  MoveManager
+  /*
   makeMove(color: string, column: number): boolean {
 
     // don't make any move if the game is over
@@ -85,6 +91,7 @@ export class Board {
     console.log('Column is full');
     return false;
   }
+*/
 
   //Testing class winChecker
   /*
