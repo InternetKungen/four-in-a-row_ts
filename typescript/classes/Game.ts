@@ -94,7 +94,7 @@ export class Game {
     
     //draw board
     this.board = new Board();
-    
+
     //start game
     this.start();
   }
@@ -148,8 +148,8 @@ export class Game {
         // when the game is over
         console.clear();
         this.board.render();
-        console.log(this.board.currentPlayerColor === 'X' ? 'Player 1 wins!' : 'Player 2 wins!');
-        console.log('Game over!');
+        console.log(this.board.currentPlayerColor === 'X' ? `${this.player1?.name} wins!` : `${this.player2?.name} wins!`);
+          console.log('Game over!');
       } else {
         // it's a draw
         console.clear();
