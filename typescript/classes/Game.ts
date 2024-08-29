@@ -12,6 +12,8 @@ export class Game {
 
   constructor() {
 
+    this.startMenu();
+    /*
     //Start Menu
     const startMenu = new StartMenu();
     const choice = startMenu.select();
@@ -26,7 +28,7 @@ export class Game {
         console.log("Exiting game...");
         return;
     }
-
+    */
     //Start Menu
     // this.startMenu();
     
@@ -36,6 +38,23 @@ export class Game {
 
   }
 
+  //Start Menu
+  startMenu(): void {
+    const startMenu = new StartMenu();
+    const choice = startMenu.select();
+    switch (choice) {
+      case 1:
+        this.startPlayerVsPlayer();
+        break;
+      case 2:
+        this.startPlayerVsComputer();
+        break;
+      case 3:
+        console.log("Exiting game...");
+        return;
+    }
+  }
+  
   // startMenu(): void {
   //   console.clear();
   //   console.log("=== Four in a row ===");
@@ -86,11 +105,11 @@ export class Game {
   startPlayerVsPlayer(): void {
     //draw menu player x
     this.drawMenuPlayerX();
-    this.player1 = new Player(prompt('Name of Player 1: '), 'X');
+    this.player1 = new Player(prompt('Name of Player X: '), 'X');
 
     //draw menu player o
     this.drawMenuPlayerO();
-    this.player2 = new Player(prompt('Name of Player 2: '), 'O');
+    this.player2 = new Player(prompt('Name of Player O: '), 'O');
     
     //draw board
     this.board = new Board();
@@ -100,7 +119,8 @@ export class Game {
   }
   
   startPlayerVsComputer(): void { //TODO: add computer player
-    this.player1 = new Player(prompt('Name of Player 1: '), 'X');
+    this.drawMenuPlayerX();
+    this.player1 = new Player(prompt('Name of Player X: '), 'X');
     this.player2 = new Player("Computer", 'O');
     this.board = new Board();
     this.start();
@@ -157,6 +177,16 @@ export class Game {
         console.log('It\'s a draw!');
         console.log('Game over!');
       } 
+
+      //Play again?
+      console.log('');
+      let playAgain = parseInt(prompt('Do you want to play again?\n 1. Yes\n 2. No\n'));
+      if (playAgain !== 1) {
+        this.startMenu(); // Start the game again
+      } else {
+        this.board = new Board();
+        this.start();
+      }
     }
   }
 }
