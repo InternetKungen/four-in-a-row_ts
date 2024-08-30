@@ -3,6 +3,7 @@ import { Player } from './Player.js';
 import { Board } from './Board.js';
 import { StartMenu } from './StartMenu.js';
 import { MenuDrawer } from './MenuDrawer.js';
+import { ComputerPlayer } from './ComputerPlayer.js';
 
 export class Game {
 
@@ -10,7 +11,6 @@ export class Game {
   player2: Player | null = null; 
   board: Board | null = null;
   menuDrawer = new MenuDrawer();
-  // validInput: boolean = false;
 
 
   constructor() {
@@ -53,11 +53,23 @@ export class Game {
   }
   
   startPlayerVsComputer(): void { //TODO: add computer player
+
+    const difficulty: number = this.selectDifficulty();
+
     this.menuDrawer.drawMenuPlayerX();
     this.player1 = new Player(prompt('Name of Player X: '), 'X');
-    this.player2 = new Player("Computer", 'O');
+    this.player2 = new ComputerPlayer("Computer", 'O', difficulty);
     this.board = new Board();
     this.start();
+  }
+
+  selectDifficulty(): number {
+    console.clear();
+    console.log("Select Difficulty:");
+    console.log("1. Easy");
+    console.log("2. Medium");
+    console.log("3. Hard");
+    return parseInt(prompt('Enter your choice: ')) || 1;
   }
   
   start(): void {
@@ -86,9 +98,18 @@ export class Game {
       //board colums are 1,2,3,4,5,6,7, but also albe to be dynamic.
       // remove 1 from column number to match array index
       if (player) {
-        let column: number = parseInt(prompt(
-          `Make your move, ${player.name}! ( ${player.color} ) - Input column number (1-${this.board.columns}): `)) - 1;
-          
+        let column: number;
+
+        // let column: number = parseInt(prompt(
+        //   `Make your move, ${player.name}! ( ${player.color} ) - Input column number (1-${this.board.columns}): `)) - 1;
+        if (player instanceof ComputerPlayer) {
+          console.log(`Computer is making its move...`);
+          column = player.makeMove(this.board);
+        } else {
+          console.log(`Make your move, ${player.name}! ( ${player.color} )`);
+          column = parseInt(prompt(
+          `Input column number (1-${this.board.columns}): `)) - 1;
+        } 
         // try to make the move
         //send current player color and column number
         this.board.moveManager.makeMove(player.color, column);
