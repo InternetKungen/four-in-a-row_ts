@@ -98,6 +98,7 @@ export class Game {
     }
 
     this.handleGameOver();
+    return;
   }
 
     // Game is over
@@ -126,39 +127,31 @@ export class Game {
     console.log("Do you want to play again ?");
     console.log("1. Play again");
     console.log("2. Return to menu");
-    console.log("3. Exit Game")
+    // console.log("3. Exit Game") //TODO: add exit game
     let playAgain = parseInt(prompt('Enter your choice: '));
-      // if (playAgain !== 1) {
-      //   this.startMenu(); // Start the game again
-      // } else {
-      //   this.board.reset();
-      //   this.board = new Board();
-      //   this.start();
-      // }
-      switch (playAgain) {
-        case 1:
-          this.board.currentPlayerColor = 'X';
-          this.board.gameOver = false;
-          this.board.isADraw = false;
-          this.board.winner = '';
-          this.board = new Board();
-          this.start();
-          
-          break;
-        case 2:
-          this.startMenu();
-          // this.validInput = true;
-          break;
-        case 3:
-          console.log("Exiting game...");
-          // this.validInput = true;
-          break;
-        default:
-          console.log('Invalid choice. Try again...');
-          this.handleGameOver();
-        }
+    
+    switch (playAgain) {
+      case 1:
+        this.board.currentPlayerColor = 'X';
+        this.board.gameOver = false;
+        this.board.isADraw = false;
+        this.board.winner = '';
+        this.board = new Board();
+        this.start();        
+        break;
+      case 2:
+        this.startMenu();
+        break;
+      // case 3: //TODO: add exit game
+      //   console.log("Exiting game...");
+      //   // this.validInput = true;
+      //   break;
+      default:
+        console.log('Invalid choice. Try again...');
+        this.handleGameOver();
       }
     }
+  }
   
 
 
