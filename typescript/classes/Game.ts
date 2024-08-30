@@ -10,6 +10,7 @@ export class Game {
   player2: Player | null = null; 
   board: Board | null = null;
   menuDrawer = new MenuDrawer();
+  // validInput: boolean = false;
 
 
   constructor() {
@@ -34,28 +35,7 @@ export class Game {
         return;
     }
   }
-  /*
-  //draw menu player x/o
-  drawMenuPlayerX(): void {
-    console.clear();
-    console.log("====  PLAYER  X  ====");
-    console.log("");
-    console.log("        X   x        ");
-    console.log("          X          ");
-    console.log("        x   X        ");
-    console.log("");
-  }
 
-  drawMenuPlayerO(): void {
-    console.clear();
-    console.log("====  PLAYER  O  ====");
-    console.log("");
-    console.log("        O O O        ");
-    console.log("        O   O        ");
-    console.log("        O O O        ");
-    console.log("");
-  }
-  */
   startPlayerVsPlayer(): void {
     //draw menu player x
     this.menuDrawer.drawMenuPlayerX();
@@ -116,31 +96,38 @@ export class Game {
         console.log('No player available');
       }
     }
+
     this.handleGameOver();
   }
+
     // Game is over
   handleGameOver(): void {
     if(!this.board) {
       return;
     }
-
-    if (this.board.gameOver) {
-      if (!this.board.isADraw) {
-        // when the game is over
-        console.clear();
-        this.board.render();
-        console.log(this.board.currentPlayerColor === 'X' ? `${this.player1?.name} wins!` : `${this.player2?.name} wins!`);
-        console.log('Game over!');
-      } else {
-        // it's a draw
-        console.clear();
-        this.board.render();
-        console.log('It\'s a draw!');
-        console.log('Game over!');
+      if (this.board.gameOver) {
+        if (!this.board.isADraw) {
+          // when the game is over
+          console.clear();
+          this.board.render();
+          console.log(this.board.currentPlayerColor === 'X' ? `${this.player1?.name} wins!` : `${this.player2?.name} wins!`);
+          console.log('Game over!');
+          // this.validInput = true;
+        } else {
+          // it's a draw
+          console.clear();
+          this.board.render();
+          console.log('It\'s a draw!');
+          console.log('Game over!');
+        }
       }
-
-      //Play again?
-      let playAgain = parseInt(prompt('Do you want to play again?\n 1. Play again\n 2. Return to menu\n 3. Exit Game\n\n Enter your choice: '));
+      // while (!this.validInput) {
+    //Play again?
+    console.log("Do you want to play again ?");
+    console.log("1. Play again");
+    console.log("2. Return to menu");
+    console.log("3. Exit Game")
+    let playAgain = parseInt(prompt('Enter your choice: '));
       // if (playAgain !== 1) {
       //   this.startMenu(); // Start the game again
       // } else {
@@ -156,18 +143,22 @@ export class Game {
           this.board.winner = '';
           this.board = new Board();
           this.start();
+          
           break;
         case 2:
           this.startMenu();
+          // this.validInput = true;
           break;
         case 3:
           console.log("Exiting game...");
+          // this.validInput = true;
           break;
         default:
           console.log('Invalid choice. Try again...');
           this.handleGameOver();
+        }
       }
     }
-  }
-}
+  
+
 
