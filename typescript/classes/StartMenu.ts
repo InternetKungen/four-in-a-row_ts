@@ -7,12 +7,13 @@ export class StartMenu {
     console.log("=== Four in a row ===");
     console.log("1. Player vs. Player");
     console.log("2. Player vs. Computer");
-    console.log("3. Exit Game\n");
+    console.log("3. Exit Game");
+    console.log("");
 
-    const choice = parseInt(prompt("Enter your choice (1-3): "), 10);
+    const choice = parseInt(prompt("Enter your choice (1-3): "));
 
     if (isNaN(choice) || choice < 1 || choice > 3) {
-      console.log("Invalid choice. Try again...");
+      console.log("Invalid choice. Try again..."); //TODO: Buggy somewhere...
       // return this.select();
       // Wait for 0.4 seconds
       setTimeout(() => this.select(), 400);
