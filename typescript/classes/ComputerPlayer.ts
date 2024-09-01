@@ -1,11 +1,16 @@
 import { Player } from './Player.js';
 import { Board } from './Board.js';
 
-export class ComputerPlayer extends Player {
+export class ComputerPlayer {
   difficulty: number;
+  player: Player;
+  name: string;
+  color: string;
 
   constructor(name: string, color: string, difficulty: number) {
-    super(name, color);
+    this.player = new Player(name, color);
+    this.name = name;
+    this.color = color;
     this.difficulty = difficulty;
   }
 
@@ -179,12 +184,12 @@ column = this.defensiveMove(board);
   }
 
   defensiveMove(board: Board): number {
-    const opponentColor = this.color === 'X' ? 'O' : 'X';
+    const opponentColor = this.player.color === 'X' ? 'O' : 'X';
     return this.findBestMove(board, opponentColor, 3);
   }
 
   offensiveMove(board: Board): number {
-    return this.findBestMove(board, this.color, 3);
+    return this.findBestMove(board, this.player.color, 3);
   }
 
   findBestMove(board: Board, currentPlayerColor: string, threshold: number): number {
