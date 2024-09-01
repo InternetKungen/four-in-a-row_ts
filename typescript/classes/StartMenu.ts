@@ -5,6 +5,7 @@ export class StartMenu {
   
     console.clear();
     console.log("=== Four in a row ===");
+    console.log("");
     console.log("1. Player vs. Player");
     console.log("2. Player vs. Computer");
     console.log("3. Exit Game");

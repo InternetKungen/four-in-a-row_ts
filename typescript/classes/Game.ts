@@ -52,7 +52,7 @@ export class Game {
     this.start();
   }
   
-  startPlayerVsComputer(): void { //TODO: add computer player
+  startPlayerVsComputer(): void {
 
     const difficulty: number = this.selectDifficulty();
 
@@ -65,10 +65,12 @@ export class Game {
 
   selectDifficulty(): number {
     console.clear();
-    console.log("Select Difficulty:");
+    console.log("= Select Difficulty =");
+    console.log("");
     console.log("1. Easy");
     console.log("2. Medium");
     console.log("3. Hard");
+    console.log("");
     return parseInt(prompt('Enter your choice: ')) || 1;
   }
   
