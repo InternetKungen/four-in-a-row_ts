@@ -31,6 +31,9 @@ export class Game {
         this.startPlayerVsComputer();
         break;
       case 3:
+        this.startComputerVsComputer();
+        break;
+      case 4:
         console.log("Exiting game...");
         return;
     }
@@ -59,6 +62,15 @@ export class Game {
     this.menuDrawer.drawMenuPlayerX();
     this.player1 = new Player(prompt('Name of Player X: '), 'X');
     this.player2 = new ComputerPlayer("Computer", 'O', difficulty);
+    this.board = new Board();
+    this.start();
+  }
+
+  startComputerVsComputer(): void {
+    const difficulty1 = this.selectDifficulty();
+    const difficulty2 = this.selectDifficulty();
+    this.player1 = new ComputerPlayer("Copmuter 1", 'X', difficulty1);
+    this.player2 = new ComputerPlayer("Computer 2", 'O', difficulty2);
     this.board = new Board();
     this.start();
   }
@@ -107,6 +119,7 @@ export class Game {
         if (player instanceof ComputerPlayer) {
           console.log(`Computer is making its move...`);
           column = player.makeMove(this.board);
+          this.delay(1000);
         } else {
           console.log(`Make your move, ${player.name}! ( ${player.color} )`);
           column = parseInt(prompt(
@@ -121,9 +134,13 @@ export class Game {
     }
 
     this.handleGameOver();
-    return;
   }
 
+  delay(ms: number): void {
+    const start = Date.now();
+    while (Date.now() - start < ms) {
+    }
+  }
     // Game is over
   handleGameOver(): void {
     if(!this.board) {
