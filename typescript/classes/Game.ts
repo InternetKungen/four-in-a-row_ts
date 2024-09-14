@@ -3,6 +3,7 @@ import { Player } from './Player.js';
 import { Board } from './Board.js';
 import { StartMenu } from './StartMenu.js';
 import { MenuDrawer } from './MenuDrawer.js';
+import { ComputerPlayer } from './ComputerPlayer.js';
 
 export class Game {
 
@@ -10,7 +11,6 @@ export class Game {
   player2: Player | null = null; 
   board: Board | null = null;
   menuDrawer = new MenuDrawer();
-  // validInput: boolean = false;
 
 
   constructor() {
@@ -31,6 +31,9 @@ export class Game {
         this.startPlayerVsComputer();
         break;
       case 3:
+        this.startComputerVsComputer();
+        break;
+      case 4:
         console.log("Exiting game...");
         return;
     }
@@ -52,12 +55,35 @@ export class Game {
     this.start();
   }
   
-  startPlayerVsComputer(): void { //TODO: add computer player
+  startPlayerVsComputer(): void {
+
+    const difficulty: number = this.selectDifficulty();
+
     this.menuDrawer.drawMenuPlayerX();
     this.player1 = new Player(prompt('Name of Player X: '), 'X');
-    this.player2 = new Player("Computer", 'O');
+    this.player2 = new ComputerPlayer("Computer", 'O', difficulty);
     this.board = new Board();
     this.start();
+  }
+
+  startComputerVsComputer(): void {
+    const difficulty1 = this.selectDifficulty();
+    const difficulty2 = this.selectDifficulty();
+    this.player1 = new ComputerPlayer("Copmuter 1", 'X', difficulty1);
+    this.player2 = new ComputerPlayer("Computer 2", 'O', difficulty2);
+    this.board = new Board();
+    this.start();
+  }
+
+  selectDifficulty(): number {
+    console.clear();
+    console.log("= Select Difficulty =");
+    console.log("");
+    console.log("1. Easy");
+    console.log("2. Medium");
+    console.log("3. Hard");
+    console.log("");
+    return parseInt(prompt('Enter your choice: ')) || 1;
   }
   
   start(): void {
@@ -86,9 +112,19 @@ export class Game {
       //board colums are 1,2,3,4,5,6,7, but also albe to be dynamic.
       // remove 1 from column number to match array index
       if (player) {
-        let column: number = parseInt(prompt(
-          `Make your move, ${player.name}! ( ${player.color} ) - Input column number (1-${this.board.columns}): `)) - 1;
-          
+        let column: number;
+
+        // let column: number = parseInt(prompt(
+        //   `Make your move, ${player.name}! ( ${player.color} ) - Input column number (1-${this.board.columns}): `)) - 1;
+        if (player instanceof ComputerPlayer) {
+          console.log(`Computer is making its move...`);
+          column = player.makeMove(this.board);
+          this.delay(1000);
+        } else {
+          console.log(`Make your move, ${player.name}! ( ${player.color} )`);
+          column = parseInt(prompt(
+          `Input column number (1-${this.board.columns}): `)) - 1;
+        } 
         // try to make the move
         //send current player color and column number
         this.board.moveManager.makeMove(player.color, column);
@@ -98,9 +134,13 @@ export class Game {
     }
 
     this.handleGameOver();
-    return;
   }
 
+  delay(ms: number): void {
+    const start = Date.now();
+    while (Date.now() - start < ms) {
+    }
+  }
     // Game is over
   handleGameOver(): void {
     if(!this.board) {

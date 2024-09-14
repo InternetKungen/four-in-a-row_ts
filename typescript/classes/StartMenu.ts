@@ -5,20 +5,19 @@ export class StartMenu {
   
     console.clear();
     console.log("=== Four in a row ===");
+    console.log("");
     console.log("1. Player vs. Player");
     console.log("2. Player vs. Computer");
-    console.log("3. Exit Game");
+    console.log("3. Computer vs. Computer");
+    console.log("4. Exit Game");
     console.log("");
 
-    const choice = parseInt(prompt("Enter your choice (1-3): "));
+    const choice = parseInt(prompt("Enter your choice (1-4): "));
 
-    if (isNaN(choice) || choice < 1 || choice > 3) {
-      console.log("Invalid choice. Try again..."); //TODO: Buggy somewhere...
-      // return this.select();
-      // Wait for 0.4 seconds
+    if (isNaN(choice) || choice < 1 || choice > 4) {
+      console.log("Invalid choice. Try again...");
       setTimeout(() => this.select(), 400);
-
-      // return this.select();
+      
       return -1;
     }
     return choice;
