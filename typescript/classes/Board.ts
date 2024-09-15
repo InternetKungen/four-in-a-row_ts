@@ -46,7 +46,7 @@ export class Board {
   // check if the board is full (for draw)
   checkBoardFull(): void {
     if (this.matrix.flat().every(cell => cell !== ' ')) {
-      this.isADraw = true; // Do I need this?
+      this.isADraw = true; 
       this.gameOver = true;
       console.log('It is a draw!');
     }
