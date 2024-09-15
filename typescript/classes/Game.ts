@@ -11,15 +11,15 @@ export class Game {
   player2: Player | null = null; 
   board: Board | null = null;
   menuDrawer = new MenuDrawer();
+  isRunning: boolean = true;
 
 
   constructor() {
-
-    this.startMenu();
-
+    while (this.isRunning) {
+      this.startMenu();
+    }
   }
 
-  //Start Menu
   startMenu(): void {
     const startMenu = new StartMenu();
     const choice = startMenu.select();
@@ -35,7 +35,8 @@ export class Game {
         break;
       case 4:
         console.log("Exiting game...");
-        return;
+        this.exitGame();
+        break;
     }
   }
 
@@ -87,7 +88,7 @@ export class Game {
   }
   
   start(): void {
-    if (!this.board) {
+    if (!this.board || !this.isRunning) {
       return;
     }
     console.clear();
@@ -114,8 +115,6 @@ export class Game {
       if (player) {
         let column: number;
 
-        // let column: number = parseInt(prompt(
-        //   `Make your move, ${player.name}! ( ${player.color} ) - Input column number (1-${this.board.columns}): `)) - 1;
         if (player instanceof ComputerPlayer) {
           console.log(`Computer is making its move...`);
           column = player.makeMove(this.board);
@@ -141,9 +140,9 @@ export class Game {
     while (Date.now() - start < ms) {
     }
   }
-    // Game is over
+  // Game is over
   handleGameOver(): void {
-    if(!this.board) {
+    if (!this.board) {
       return;
     }
       if (this.board.gameOver) {
@@ -153,7 +152,6 @@ export class Game {
           this.board.render();
           console.log(this.board.currentPlayerColor === 'X' ? `${this.player1?.name} wins!` : `${this.player2?.name} wins!`);
           console.log('Game over!');
-          // this.validInput = true;
         } else {
           // it's a draw
           console.clear();
@@ -162,36 +160,44 @@ export class Game {
           console.log('Game over!');
         }
       }
-      // while (!this.validInput) {
     //Play again?
     console.log("Do you want to play again ?");
     console.log("1. Play again");
     console.log("2. Return to menu");
-    // console.log("3. Exit Game") //TODO: add exit game
+    console.log("3. Exit Game") //exit game - loops one more time..
     let playAgain = parseInt(prompt('Enter your choice: '));
     
     switch (playAgain) {
       case 1:
-        this.board.currentPlayerColor = 'X';
-        this.board.gameOver = false;
-        this.board.isADraw = false;
-        this.board.winner = '';
-        this.board = new Board();
+        this.resetGame();
         this.start();        
         break;
       case 2:
         this.startMenu();
         break;
-      // case 3: //TODO: add exit game
-      //   console.log("Exiting game...");
-      //   // this.validInput = true;
-      //   break;
+      case 3: //exit game - loops one more time..
+        console.log("Exiting game...");
+        this.exitGame();
+        break;
       default:
         console.log('Invalid choice. Try again...');
         this.handleGameOver();
       }
-    }
   }
+
+  resetGame(): void {
+    this.board = new Board();
+    this.board.currentPlayerColor = 'X';
+    this.board.gameOver = false;
+    this.board.isADraw = false;
+    this.board.winner = '';
+  }
+
+  exitGame(): void {
+    console.log("Thank you for playing. Goodbye!");
+    this.isRunning = false;
+  }
+}
   
 
 
